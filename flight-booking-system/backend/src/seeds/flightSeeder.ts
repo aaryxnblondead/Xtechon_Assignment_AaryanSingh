@@ -21,6 +21,34 @@ const flights = [
     bookingAttempts: [],
   },
   {
+    flightId: 'AI102',
+    airline: 'Air India',
+    departureCity: 'Mumbai',
+    arrivalCity: 'Delhi',
+    basePrice: 2550,
+    currentPrice: 2550,
+    departureTime: new Date('2025-12-20T12:15:00'),
+    arrivalTime: new Date('2025-12-20T14:25:00'),
+    duration: 130,
+    seatsAvailable: 180,
+    totalSeats: 180,
+    bookingAttempts: [],
+  },
+  {
+    flightId: '6E103',
+    airline: 'IndiGo',
+    departureCity: 'Mumbai',
+    arrivalCity: 'Delhi',
+    basePrice: 2450,
+    currentPrice: 2450,
+    departureTime: new Date('2025-12-20T18:10:00'),
+    arrivalTime: new Date('2025-12-20T20:20:00'),
+    duration: 130,
+    seatsAvailable: 180,
+    totalSeats: 180,
+    bookingAttempts: [],
+  },
+  {
     flightId: '6E202',
     airline: 'IndiGo',
     departureCity: 'Delhi',
@@ -30,6 +58,34 @@ const flights = [
     departureTime: new Date('2025-12-20T09:30:00'),
     arrivalTime: new Date('2025-12-20T12:10:00'),
     duration: 160,
+    seatsAvailable: 180,
+    totalSeats: 180,
+    bookingAttempts: [],
+  },
+  {
+    flightId: 'UK319',
+    airline: 'Vistara',
+    departureCity: 'Pune',
+    arrivalCity: 'Delhi',
+    basePrice: 2350,
+    currentPrice: 2350,
+    departureTime: new Date('2025-12-20T09:20:00'),
+    arrivalTime: new Date('2025-12-20T11:25:00'),
+    duration: 125,
+    seatsAvailable: 180,
+    totalSeats: 180,
+    bookingAttempts: [],
+  },
+  {
+    flightId: 'SG320',
+    airline: 'SpiceJet',
+    departureCity: 'Delhi',
+    arrivalCity: 'Pune',
+    basePrice: 2350,
+    currentPrice: 2350,
+    departureTime: new Date('2025-12-20T21:10:00'),
+    arrivalTime: new Date('2025-12-20T23:15:00'),
+    duration: 125,
     seatsAvailable: 180,
     totalSeats: 180,
     bookingAttempts: [],
@@ -260,7 +316,7 @@ const flights = [
   },
 ];
 
-async function seedFlights() {
+export async function seedFlights() {
   try {
     const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/flight-booking';
     await mongoose.connect(mongoUri);
@@ -278,5 +334,3 @@ async function seedFlights() {
     process.exit(1);
   }
 }
-
-seedFlights();

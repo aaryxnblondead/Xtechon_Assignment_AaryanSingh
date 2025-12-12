@@ -1,8 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { bookingAPI } from '@/services/api';
+import { updateWallet } from './authSlice';
 
-export const createBooking = createAsyncThunk('booking/create', async (data: any) => {
+export const createBooking = createAsyncThunk('booking/create', async (data: any, { dispatch }) => {
   const res = await bookingAPI.book(data);
+  try {
+    const w = await bookingAPI.getWallet();
+    if (w.data?.walletBalance !== undefined) {
+      dispatch(updateWallet(w.data.walletBalance));
+    }
+  } catch {}
   return res.data;
 });
 
@@ -11,8 +18,14 @@ export const loadHistory = createAsyncThunk('booking/history', async () => {
   return res.data;
 });
 
-export const cancelBooking = createAsyncThunk('booking/cancel', async (pnr: string) => {
+export const cancelBooking = createAsyncThunk('booking/cancel', async (pnr: string, { dispatch }) => {
   const res = await bookingAPI.cancel(pnr);
+  try {
+    const w = await bookingAPI.getWallet();
+    if (w.data?.walletBalance !== undefined) {
+      dispatch(updateWallet(w.data.walletBalance));
+    }
+  } catch {}
   return res.data;
 });
 

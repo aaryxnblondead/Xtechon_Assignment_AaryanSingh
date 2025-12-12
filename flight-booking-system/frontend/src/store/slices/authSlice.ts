@@ -11,6 +11,11 @@ export const login = createAsyncThunk('auth/login', async (data: any) => {
   return response.data;
 });
 
+export const fetchProfile = createAsyncThunk('auth/fetchProfile', async () => {
+  const response = await authAPI.getProfile();
+  return response.data;
+});
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -25,6 +30,11 @@ const authSlice = createSlice({
       state.token = null;
       if (typeof window !== 'undefined') localStorage.removeItem('token');
     },
+    updateWallet(state, action) {
+      if (state.user) {
+        state.user.walletBalance = action.payload;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -37,9 +47,12 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         if (typeof window !== 'undefined') localStorage.setItem('token', action.payload.token);
+      })
+      .addCase(fetchProfile.fulfilled, (state, action) => {
+        state.user = action.payload;
       });
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, updateWallet } = authSlice.actions;
 export default authSlice.reducer;
