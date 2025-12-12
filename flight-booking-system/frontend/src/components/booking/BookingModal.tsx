@@ -57,26 +57,50 @@ export default function BookingModal({ flight, onClose }: BookingModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4">Confirm Booking</h2>
-        <div className="mb-4">
-          <p><strong>Flight:</strong> {flight.airline} ({flight.flightId})</p>
-          <p><strong>Route:</strong> {flight.departureCity} to {flight.arrivalCity}</p>
-          <p><strong>Price:</strong> ₹{flight.currentPrice.toLocaleString()}</p>
-          <p><strong>Your Balance:</strong> ₹{balance.toLocaleString()}</p>
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 backdrop-blur-sm">
+      <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-300 scale-95 hover:scale-100">
+        <h2 className="text-3xl font-bold mb-6 text-gray-800">
+          Confirm Booking
+        </h2>
+        <div className="mb-6 space-y-3 text-gray-700">
+          <p>
+            <strong>Flight:</strong> {flight.airline} ({flight.flightId})
+          </p>
+          <p>
+            <strong>Route:</strong> {flight.departureCity} to{" "}
+            {flight.arrivalCity}
+          </p>
+          <p className="text-xl font-semibold">
+            <strong>Price:</strong> ₹{flight.currentPrice.toLocaleString()}
+          </p>
+          <p
+            className={`font-medium ${
+              balance < flight.currentPrice ? "text-red-500" : "text-green-600"
+            }`}
+          >
+            <strong>Your Balance:</strong> ₹{balance.toLocaleString()}
+          </p>
         </div>
         <input
           type="text"
           value={passengerName}
           onChange={(e) => setPassengerName(e.target.value)}
           placeholder="Passenger Name"
-          className="w-full p-2 border rounded mb-4"
+          className="w-full p-3 border-2 border-gray-200 rounded-lg mb-6 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
         />
         <div className="flex justify-end gap-4">
-          <button onClick={onClose} className="text-gray-600">Cancel</button>
-          <button onClick={handleBooking} disabled={loading} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-blue-300">
-            {loading ? 'Booking...' : 'Confirm & Book'}
+          <button
+            onClick={onClose}
+            className="text-gray-700 font-medium px-6 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleBooking}
+            disabled={loading}
+            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 disabled:bg-indigo-400 transition-all duration-300 ease-in-out shadow-sm hover:shadow-md"
+          >
+            {loading ? "Booking..." : "Confirm & Book"}
           </button>
         </div>
       </div>

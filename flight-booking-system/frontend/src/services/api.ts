@@ -65,3 +65,13 @@ export const getWalletBalance = async (token: string) => {
     throw error;
   }
 };
+
+export const login = async (credentials: any) => {
+  const response = await api.post('/auth/login', credentials);
+  return response.data;
+};
+
+export const signup = async (userInfo: any) => {
+  const response = await api.post('/auth/register', userInfo);
+  return response.data;
+};

@@ -16,17 +16,11 @@ export interface Flight {
 export interface Booking {
   _id: string;
   pnr: string;
+  flight: Flight;
   passengerName: string;
   finalPrice: number;
   bookingDate: string;
-  status: 'confirmed' | 'cancelled';
-  flightDetails: {
-    airline: string;
-    flightId: string;
-    departureCity: string;
-    arrivalCity: string;
-    departureTime: string;
-  };
+  status: "confirmed" | "cancelled";
   ticketDownloadUrl: string;
 }
 
